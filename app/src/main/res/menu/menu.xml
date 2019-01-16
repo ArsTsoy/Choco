@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/item_sort"
+        android:title="@string/item_title_sort">
+    </item>
+    <item android:id="@+id/item_map"
+        android:title="@string/item_title_map">
+    </item>
+    <item android:id="@+id/item_favourite"
+        android:title="@string/item_title_favourite">
+    </item>
+
+</menu>
