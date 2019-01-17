@@ -15,14 +15,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toolbar;
-
+import android.widget.Toast;
 
 
 import com.example.arslan.chocolife.adapters.CategoryAdapter;
@@ -41,13 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String myResultTag = "myResult";
     private static int methodOfSort = 0;
+    private Toolbar toolbar;
 
-//    private Toolbar toolbar;
 
-//    private RecyclerView recyclerViewTest;
-
-//    private StockAdapter stockAdapter;
-//
 //
     private CategoryAdapter categoryAdapter;
     private LoaderManager loaderManager;
@@ -95,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        setSupportActionBar(toolbar);
 
+        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
 //        recyclerViewTest = findViewById(R.id.recyclerViewTest);
 //        recyclerViewTest.setLayoutManager(new LinearLayoutManager(this));
@@ -115,7 +111,13 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 //
         loaderManager = LoaderManager.getInstance(this);
-
+        categoryAdapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
+            @Override
+            public void onCategoryClick(int position) {
+                Toast.makeText(getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                categoryAdapter.getRecyclerViewsSubcategories().get(position).setVisibility(View.VISIBLE);
+            }
+        });
 //        recyclerViewTest.setAdapter(stockAdapter);
 
 //        downloadData(NetworkUtils.SORT_POPULARITY,1,1,1);

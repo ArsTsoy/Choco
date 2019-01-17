@@ -3,6 +3,7 @@ package com.example.arslan.chocolife.adapters;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +18,29 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     private List<Category> categories;
-    private SubcategoryAdapter subcategoryAdapter;
+//    private SubcategoryAdapter subcategoryAdapter;
+    private List<RecyclerView> recyclerViewsSubcategories;
+    private int count = 1;
+
+
+    public List<RecyclerView> getRecyclerViewsSubcategories() {
+        return recyclerViewsSubcategories;
+    }
 
     public CategoryAdapter() {
+
         this.categories = new ArrayList<>();
-        getSubcategoryAdapter();
+        this.recyclerViewsSubcategories = new ArrayList<>();
+//        getSubcategoryAdapter();
     }
 
-    public SubcategoryAdapter getSubcategoryAdapter() {
-        if(subcategoryAdapter == null){
-            subcategoryAdapter = new SubcategoryAdapter();
-        }
-        return subcategoryAdapter;
-
-    }
+//    public SubcategoryAdapter getSubcategoryAdapter() {
+//        if(subcategoryAdapter == null){
+//            subcategoryAdapter = new SubcategoryAdapter();
+//        }
+//        return subcategoryAdapter;
+//
+//    }
 
     public void setCategories(List<Category> categories) {
         this.categories.clear();
@@ -43,10 +53,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.notifyDataSetChanged();
     }
 
+
+
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_navigation_item, viewGroup, false);
+
         return new CategoryViewHolder(view);
     }
 
@@ -54,12 +67,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, int i) {
+//        Log.i("onBindViewHolder", Integer.toString(count++));
         Category category = categories.get(i);
         categoryViewHolder.textViewTitle.setText(category.getTitle());
         RecyclerView recyclerViewChild = categoryViewHolder.recyclerViewChild;
+        recyclerViewsSubcategories.add(recyclerViewChild);
+        Log.i("myArrayList", "Category = " + category + " size =" + Integer.toString(recyclerViewsSubcategories.size()));
+        SubcategoryAdapter subcategoryAdapter = new SubcategoryAdapter();
+        recyclerViewChild.setAdapter(subcategoryAdapter);
+
+        subcategoryAdapter.setSubcategories(categories.get(i).getSub_categories());
+        Log.i("myArrayList",i+" " + category.getSub_categories().toString());
         if(category.isHasSubcategories()){
-            recyclerViewChild.setAdapter(subcategoryAdapter);
-            subcategoryAdapter.setSubcategories(categories.get(i).getSub_categories());
             categoryViewHolder.textViewCountStocks.setVisibility(View.GONE);
             categoryViewHolder.imageViewArrow.setVisibility(View.VISIBLE);
         }else{
@@ -124,6 +143,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         private List<Category> subcategories;
 
         public SubcategoryAdapter() {
+            Log.i("subCategoryAdapter", "gjsda");
             this.subcategories = new ArrayList<>();
         }
 

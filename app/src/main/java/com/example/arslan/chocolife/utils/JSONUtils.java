@@ -112,7 +112,7 @@ public class JSONUtils {
                 JSONArray jsonArraySubcategories = objectCategory.getJSONArray(KEY_SUBCATEGORIES);
 
                 for (int j = 0; j < jsonArraySubcategories.length(); j++) {
-                    JSONObject objectSubcategory = jsonArraySubcategories.getJSONObject(i);
+                    JSONObject objectSubcategory = jsonArraySubcategories.getJSONObject(j);
                     int sCategory_id = objectSubcategory.getInt(KEY_CATEGORY_ID);
                     String sTitle = objectSubcategory.getString(KEY_CATEGORY_TITLE);
                     String sTitle_translit = objectSubcategory.getString(KEY_CATEGORY_TITLE_TRANSLIT);
