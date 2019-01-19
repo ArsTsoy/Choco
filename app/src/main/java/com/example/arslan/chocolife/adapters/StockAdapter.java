@@ -27,6 +27,10 @@ public class StockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private List<Stock> stocks;
 
+    public Stock getStock(int position){
+        return stocks.get(position);
+    }
+
     public StockAdapter() {
         this.stocks = new ArrayList<>();
     }
@@ -45,6 +49,8 @@ public class StockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.stocks.addAll(stocks);
         this.notifyDataSetChanged();
     }
+
+
 
 
     @NonNull

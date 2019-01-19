@@ -1,5 +1,6 @@
 package com.example.arslan.chocolife;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -94,8 +95,11 @@ public class StocksFragment extends Fragment  {
         stockAdapter.setOnStockClickLstener(new StockAdapter.OnStockClickLstener() {
             @Override
             public void onStockClick(int position) {
-                Toast.makeText(getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
-//                Intent detailIntent = new Intent(getContext(), )
+                Intent detailIntent = new Intent(getContext(), DetailActivity.class );
+                detailIntent.putExtra("deal_id", stockAdapter.getStock(position).getDealId());
+
+                Toast.makeText(getContext(), Integer.toString(stockAdapter.getStock(position).getDealId()), Toast.LENGTH_SHORT).show();
+                startActivity(detailIntent);
             }
         });
 

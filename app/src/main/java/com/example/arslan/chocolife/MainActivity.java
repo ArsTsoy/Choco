@@ -40,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String myResultTag = "myResult";
     private static int methodOfSort = 0;
-    private Toolbar toolbar;
+    private int openedCategoryPosition = 0;
+
+//    private Toolbar toolbar;
+   
 
 
-//
+
     private CategoryAdapter categoryAdapter;
     private LoaderManager loaderManager;
     private static final int loaderId = 10;
@@ -91,39 +94,71 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+//        initToolbar();
 
-//        recyclerViewTest = findViewById(R.id.recyclerViewTest);
-//        recyclerViewTest.setLayoutManager(new LinearLayoutManager(this));
 
         categoryAdapter = new CategoryAdapter();
         recyclerViewCategories = findViewById(R.id.recyclerViewParent);
         recyclerViewCategories.setAdapter(categoryAdapter);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(this));
-//        stockAdapter = new StockAdapter();
-//
-//
-//
-//
-//
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//
-        loaderManager = LoaderManager.getInstance(this);
-        categoryAdapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
-            @Override
-            public void onCategoryClick(int position) {
-                Toast.makeText(getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
-                categoryAdapter.getRecyclerViewsSubcategories().get(position).setVisibility(View.VISIBLE);
-            }
-        });
-//        recyclerViewTest.setAdapter(stockAdapter);
 
-//        downloadData(NetworkUtils.SORT_POPULARITY,1,1,1);
+
+        loaderManager = LoaderManager.getInstance(this);
+//        categoryAdapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
+//
+//            /**
+//             * Subcategory записаны правильно
+//             * @param position
+//             */
+//            @Override
+//            public void onCategoryClick(int position) {
+//                Toast.makeText(getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+//                ArrayList<Category> categoriesList = (ArrayList<Category>) categoryAdapter.getCategories();
+//
+//
+//
+//////                Log.i("myCategories", categoriesList.get(position).getSub_categories().toString());
+//
+//                ArrayList<RecyclerView> recyclerViewArrayList = categoryAdapter.getRecyclerViewSubcategoriesAsArray();
+////                Log.i("myCategories", recyclerViewArrayList.toString());
+//                recyclerViewArrayList.get(position).setVisibility(View.VISIBLE);
+//                recyclerViewArrayList.get(openedCategoryPosition).setVisibility(View.GONE);
+//                openedCategoryPosition = position;
+//
+////                .get(position).setVisibility(View.VISIBLE)
+//            }
+//        });
+////        recyclerViewTest.setAdapter(stockAdapter);
+//
+////        downloadData(NetworkUtils.SORT_POPULARITY,1,1,1);
         downloadData(1);
 
     }
+
+//    private void initToolbar() {
+//        toolbar = findViewById(R.id.includeToolBar);
+//        toolbar.setLogo(R.drawable.logo);
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                int id = menuItem.getItemId();
+//                switch (id) {
+//                    case R.id.item_sort:
+//                        showAlertDialogSortButtonClicked();
+//                        break;
+//                    case R.id.item_map:
+//                        break;
+//                    case R.id.item_favourite:
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+//        toolbar.inflateMenu(R.menu.menu);
+//    }
 
 
     private void downloadData(int town_id){

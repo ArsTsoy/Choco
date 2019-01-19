@@ -9,4 +9,6 @@
     <dimen name="textView_rating_size">18sp</dimen>
     <dimen name="heart_size">20dp</dimen>
     <dimen name="margin_for_rating">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>
