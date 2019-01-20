@@ -27,4 +27,11 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tab_info_economy_from">экономия от %s тг.</string>
+    <string name="tab_info_price_from">от %s тг.</string>
+    <string name="tab_info_reviews_number">Отзывов: %s</string>
+    <string name="tab_info_bought_number">Купили: %s</string>
+    <string name="tab_info_review_rate">%s</string>
+    <string name="tab_info_title">Любите петь? Тогда Вам сюда! Аренда кабинок на 2, 4 или 6 часов в караоке Soprano скидкой до 85%!</string>
+    <string name="tab_info_title_short">%s</string>
 </resources>

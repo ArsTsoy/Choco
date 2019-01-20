@@ -1,5 +1,6 @@
 package com.example.arslan.chocolife;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,6 +43,7 @@ public class StocksFragment extends Fragment  {
     private RecyclerView recyclerViewStocks;
 
 
+
     private LoaderManager loaderManager;
     private static final int loaderStockId = 1;
 //    private static final int loaderCategoryId = 2;
@@ -49,6 +51,7 @@ public class StocksFragment extends Fragment  {
     private int page = 1;
     private boolean isLoading = false;
     private String methodOfSort;
+
 
 
 
@@ -95,10 +98,12 @@ public class StocksFragment extends Fragment  {
         stockAdapter.setOnStockClickLstener(new StockAdapter.OnStockClickLstener() {
             @Override
             public void onStockClick(int position) {
-                Intent detailIntent = new Intent(getContext(), DetailActivity.class );
-                detailIntent.putExtra("deal_id", stockAdapter.getStock(position).getDealId());
+                Intent detailIntent = new Intent(getContext(), Detail2Activity.class );
+                int deal_id = stockAdapter.getStock(position).getDealId();
+                detailIntent.putExtra("deal_id", Integer.toString(deal_id));
 
-                Toast.makeText(getContext(), Integer.toString(stockAdapter.getStock(position).getDealId()), Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(getContext(), Integer.toString(stockAdapter.getStock(position).getDealId()), Toast.LENGTH_SHORT).show();
                 startActivity(detailIntent);
             }
         });
@@ -112,44 +117,7 @@ public class StocksFragment extends Fragment  {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onStart() {
-        Log.i("Stage","OnStart");
-        super.onStart();
-    }
 
-    @Override
-    public void onResume() {
-        Log.i("Stage","OnResume");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.i("Stage","OnPause");
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Log.i("Stage","OnStop");
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 
 
 

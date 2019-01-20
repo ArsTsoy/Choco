@@ -38,6 +38,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private static final int LAYOUT = R.layout.activity_main;
+
     private static final String myResultTag = "myResult";
     private static int methodOfSort = 0;
     private int openedCategoryPosition = 0;
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(LAYOUT);
 
 
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,9 @@ public class NetworkUtils {
     private static final String BASE_URL_STOCKS = "https://chocolife.me/mobileapi/v3_3/deals?";
     private static final String BASE_URL_CATEGORIES = "https://chocolife.me/mobileapi/v3_3/categories?";
     private static final String BASE_URL_DEAL_INFO = "https://chocolife.me/mobileapi/v3/deal/?";
+
+
+    private static final String PARAMS_DEAL_ID = "deal_id";
 
 //    ?town_id={1}&category_id={1}&search_text={abc}&sort={null, price_asc, price_desc, popular, rating_desc, new}&page={1}
 
@@ -69,10 +73,28 @@ public class NetworkUtils {
         try {
             result = new URL(uri.toString());
 
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static URL buildURLDealInfo(String deal_id){
+
+        URL result = null;
+        Uri uri = Uri.parse(BASE_URL_DEAL_INFO).buildUpon()
+                .appendQueryParameter(PARAMS_DEAL_ID, deal_id)
+                .build();
+        try {
+            result = new URL(uri.toString());
+//            Log.i("myImages", uri.toString());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return result;
+
     }
 
 
