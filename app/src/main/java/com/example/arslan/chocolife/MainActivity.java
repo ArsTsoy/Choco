@@ -170,9 +170,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle =  new Bundle();
         bundle.putString("url", url.toString());
 
-        /**
-         * @param LoaderCallbacks - это слушатель изменений он реализован тут поэтому this
-         */
         loaderManager.restartLoader(loaderId, bundle, loaderForCategories);
     }
 

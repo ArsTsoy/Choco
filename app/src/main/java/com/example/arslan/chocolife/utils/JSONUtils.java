@@ -75,35 +75,16 @@ public class JSONUtils {
     //keys for stocks
     private static final String KEY_DEAL_ID = "deal_id";
     private static final String KEY_DISCOUNT = "discount";
-    //    private static final String KEY_STOCK_TITLE = "title";
+
     private static final String KEY_IMAGE_KIND = "image_kind";
     private static final String KEY_IMAGE_URL = "image_url";
     private static final String KEY_IMAGE_URL_WIDE = "image_url_wide";
-
-    //    private int category_id;
-    //    private String title;
-    //    private String title_translit;
-    //    private int deals_number;
-    //    private ArrayList<Category> sub_categories;
 
     //keys for categories
     private static final String KEY_CATEGORY_ID = "id";
     private static final String KEY_CATEGORY_TITLE_TRANSLIT = "title_translit";
     private static final String KEY_DEALS_NUMBER = "deals_number";
     private static final String KEY_SUBCATEGORIES = "sub_categories";
-
-
-    //    private String imageUrlWide;
-    //    private String imageUrl;
-    //    private String imageKind;
-    //    private int bought;
-    //    private String title;
-    //    private double reviewsRate;
-    //    private String titleShort;
-    //    private int discount;
-    //    private int price;
-    //    private int dealId;
-
 
     public static List<Stock> getStocksFromJSON(JSONObject jsonObject) {
         ArrayList<Stock> result = new ArrayList<>();
@@ -183,8 +164,6 @@ public class JSONUtils {
             return null;
         }
         try {
-
-
             JSONObject objectStockInfo = jsonObject.getJSONObject(KEY_RESULT);
 
             JSONArray jsonArrayImages = objectStockInfo.getJSONArray(KEY_IMAGES);
@@ -271,5 +250,37 @@ public class JSONUtils {
         return null;
     }
 
+
+    public static String getDealTermFromJSON(JSONObject jsonObject) {
+        String result;
+        if (jsonObject == null) {
+            return null;
+        }
+        try {
+            JSONObject objectStockTerm = jsonObject.getJSONObject(KEY_RESULT);
+            Log.i("json", objectStockTerm.toString());
+            result = objectStockTerm.getString(KEY_TERMS);
+            Log.i("json", objectStockTerm.getString(KEY_TERMS));
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static String getDealFeaturesFromJSON(JSONObject jsonObject) {
+        String result;
+        if (jsonObject == null) {
+            return null;
+        }
+        try {
+            result = jsonObject.getString(KEY_FEATURES);
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

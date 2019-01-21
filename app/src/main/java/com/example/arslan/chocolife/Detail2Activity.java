@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arslan.chocolife.DetailFragments.TabInfoFragment;
+import com.example.arslan.chocolife.DetailFragments.TabTermsFragment;
 import com.example.arslan.chocolife.adapters.SectionsPagerAdapter;
 
 public class Detail2Activity extends AppCompatActivity {
@@ -70,11 +71,16 @@ public class Detail2Activity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        TabInfoFragment tabInfoFragment = new TabInfoFragment();
         Bundle bundle = new Bundle();
         bundle.putString("deal_id", deal_id);
+
+        TabInfoFragment tabInfoFragment = new TabInfoFragment();
         tabInfoFragment.setArguments(bundle);
+        TabTermsFragment tabTermsFragment = new TabTermsFragment();
+        tabTermsFragment.setArguments(bundle);
+
         adapter.addFragment(tabInfoFragment, "Информация");
+        adapter.addFragment(tabTermsFragment, "Условия");
 //        adapter.addFragment(tabInfoFragment, "Условия");
 //        adapter.addFragment(tabInfoFragment, "Особенности");
 //        adapter.addFragment(new Tab1Fragment(), "TAB1");

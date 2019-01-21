@@ -50,14 +50,7 @@ public class TabInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
 
-
         view_flipper = view.findViewById(R.id.view_flipper);
-        view_flipper.setFlipInterval(3000);
-        view_flipper.setAutoStart(true);
-
-//        view_flipper.setInAnimation(getActivity(), R.anim.slide_in_right);
-//        view_flipper.setOutAnimation(getActivity(), R.anim.slide_out_left);
-
         textViewDetailTitleShort = view.findViewById(R.id.textViewDetailTitleShort);
         textViewDetailTitle = view.findViewById(R.id.textViewDetailTitle);
         textViewReviewsRate = view.findViewById(R.id.textViewReviewsRate);
@@ -65,17 +58,24 @@ public class TabInfoFragment extends Fragment {
         textViewReviewsCount = view.findViewById(R.id.textViewReviewsCount);
         textViewPriceStockInfo = view.findViewById(R.id.textViewPriceStockInfo);
         textViewEconomyStockInfo = view.findViewById(R.id.textViewEconomyStockInfo);
+        configureViewFlipper();
         loaderManager = LoaderManager.getInstance(this);
         try {
             Bundle bundle = this.getArguments();
             deal_id = bundle.getString("deal_id");
-//            Toast.makeText(getActivity(), "Fragment deal_id = " + deal_id, Toast.LENGTH_SHORT).show();
+
             downloadData(deal_id);
         } catch (NullPointerException e) {
             Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
         }
 
         return view;
+    }
+
+    private void configureViewFlipper() {
+
+        view_flipper.setFlipInterval(3000);
+        view_flipper.setAutoStart(true);
     }
 
 
@@ -114,14 +114,7 @@ public class TabInfoFragment extends Fragment {
         @Override
         public void onLoadFinished(@NonNull Loader<JSONObject> loader, JSONObject jsonObject) {
             StockInfo stockInfo = JSONUtils.getStockInfoFromJSON(jsonObject);
-//            private ViewFlipper view_flipper;
-//            private TextView textViewDetailTitleShort;
-//            private TextView textViewDetailTitle;
-//            private TextView textViewReviewsRate;
-//            private TextView textViewPrice;
-//            private TextView textViewReviewsCount;
-//            private TextView textViewPriceStockInfo;
-//            private TextView textViewEconomyStockInfo;
+
             ArrayList<String> images = stockInfo.getImages();
             if(images != null && !images.isEmpty()){
                 for (int i = 0; i < images.size(); i++) {
