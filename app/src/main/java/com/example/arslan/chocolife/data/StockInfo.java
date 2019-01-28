@@ -15,7 +15,7 @@ public class StockInfo {
     private int reviews_number;
     private int price;
     private int economy;
-    private String expiry_time;
+    private String timeout;
     private String protection;
     private ArrayList<Place> places;
     private HashMap<String,String> social_links;
@@ -47,7 +47,7 @@ public class StockInfo {
         this.reviews_number = builder.bReviews_number;
         this.price = builder.bPrice;
         this.economy = builder.bEconomy;
-        this.expiry_time = builder.bExpiry_time;
+        this.timeout = builder.bTimeout;
         this.protection = builder.bProtection;
         this.places = builder.bPlaces;
         this.social_links = builder.bSocial_links;
@@ -100,8 +100,8 @@ public class StockInfo {
         return economy;
     }
 
-    public String getExpiry_time() {
-        return expiry_time;
+    public String getTimeout() {
+        return timeout;
     }
 
     public String getProtection() {
@@ -179,7 +179,7 @@ public class StockInfo {
         private int bReviews_number;
         private int bPrice;
         private int bEconomy;
-        private String bExpiry_time;
+        private String bTimeout;
         private String bProtection;
         private ArrayList<Place> bPlaces;
         private HashMap<String,String> bSocial_links;
@@ -211,7 +211,7 @@ public class StockInfo {
                 int bReviews_number,
                 int bPrice,
                 int bEconomy,
-                String bExpiry_time,
+                String bTimeout,
                 String bProtection,
                 ArrayList<Place> bPlaces,
                 HashMap<String,String> bSocial_links,
@@ -228,7 +228,7 @@ public class StockInfo {
             this.bReviews_number = bReviews_number;
             this.bPrice = bPrice;
             this.bEconomy = bEconomy;
-            this.bExpiry_time = bExpiry_time;
+            this.bTimeout = bTimeout;
             this.bProtection = bProtection;
             this.bPlaces = new ArrayList<>(bPlaces);
             this.bSocial_links = bSocial_links;

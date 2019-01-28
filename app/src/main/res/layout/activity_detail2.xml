@@ -59,9 +59,11 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
     <Button
         android:id="@+id/buttonBuy"
         android:layout_width="match_parent"
@@ -69,6 +71,7 @@
         android:background="@android:color/holo_orange_light"
         android:textSize="22sp"
         android:textStyle="bold"
+
         android:padding="10dp"
         app:layout_anchor="@id/container"
         app:layout_anchorGravity="bottom"

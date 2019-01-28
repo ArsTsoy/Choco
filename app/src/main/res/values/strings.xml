@@ -34,4 +34,7 @@
     <string name="tab_info_review_rate">%s</string>
     <string name="tab_info_title">Любите петь? Тогда Вам сюда! Аренда кабинок на 2, 4 или 6 часов в караоке Soprano скидкой до 85%!</string>
     <string name="tab_info_title_short">%s</string>
+    <string name="tab_info_protection">%s защита покупателей</string>
+    <string name="tab_info_dealTimeout">Можно воспользоваться до %s</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

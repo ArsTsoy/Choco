@@ -35,7 +35,7 @@ public class JSONUtils {
     private static final String KEY_IMAGES = "images";
     private static final String KEY_REVIEWS_NUMBER = "reviews_number";
     private static final String KEY_ECONOMY = "economy";
-    private static final String KEY_EXPIRY_TIME = "expiry_time";
+    private static final String KEY_TIMEOUT = "timeout";
     private static final String KEY_PROTECTION = "protection";
 
     private static final String KEY_PLACES = "places";
@@ -61,6 +61,7 @@ public class JSONUtils {
     private static final String KEY_FILES_EXTENSION = "extension";
 
 
+    private static final String KEY_EXPIRY_TIME = "expiry_time";
     private static final String KEY_OFFERS = "offers";
     private static final String KEY_TERMS = "terms";
     private static final String KEY_FEATURES = "features";
@@ -179,7 +180,8 @@ public class JSONUtils {
             int reviews_number = objectStockInfo.getInt(KEY_REVIEWS_NUMBER);
             int price = objectStockInfo.getInt(KEY_PRICE);
             int economy = objectStockInfo.getInt(KEY_ECONOMY);
-            String expiry_time = objectStockInfo.getString(KEY_EXPIRY_TIME);
+            String timeout = objectStockInfo.getString(KEY_TIMEOUT);
+
             String protection = objectStockInfo.getString(KEY_PROTECTION);
 
             JSONArray jsonArrayPlaces = objectStockInfo.getJSONArray(KEY_PLACES);
@@ -230,7 +232,7 @@ public class JSONUtils {
                     bought_number,
                     reviews_number,
                     price, economy,
-                    expiry_time,
+                    timeout,
                     protection,
                     places,
                     socialLinks,
@@ -258,9 +260,9 @@ public class JSONUtils {
         }
         try {
             JSONObject objectStockTerm = jsonObject.getJSONObject(KEY_RESULT);
-            Log.i("json", objectStockTerm.toString());
+//            Log.i("json", objectStockTerm.toString());
             result = objectStockTerm.getString(KEY_TERMS);
-            Log.i("json", objectStockTerm.getString(KEY_TERMS));
+//            Log.i("json", objectStockTerm.getString(KEY_TERMS));
             return result;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -275,7 +277,8 @@ public class JSONUtils {
             return null;
         }
         try {
-            result = jsonObject.getString(KEY_FEATURES);
+            JSONObject objectStockFeatures = jsonObject.getJSONObject(KEY_RESULT);
+            result = objectStockFeatures.getString(KEY_FEATURES);
             return result;
         } catch (JSONException e) {
             e.printStackTrace();

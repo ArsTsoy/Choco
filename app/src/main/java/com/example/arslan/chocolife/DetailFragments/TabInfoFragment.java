@@ -17,18 +17,30 @@ import android.widget.ViewFlipper;
 
 import com.example.arslan.chocolife.OnDataPass;
 import com.example.arslan.chocolife.R;
+import com.example.arslan.chocolife.data.Place;
 import com.example.arslan.chocolife.data.Stock;
 import com.example.arslan.chocolife.data.StockInfo;
+import com.example.arslan.chocolife.utils.DateUtils;
 import com.example.arslan.chocolife.utils.JSONUtils;
 import com.example.arslan.chocolife.utils.NetworkUtils;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class TabInfoFragment extends Fragment {
+public class TabInfoFragment extends Fragment implements OnMapReadyCallback {
 
     private static final int LAYOUT = R.layout.fragment_info_tab;
     private String deal_id;
@@ -44,6 +56,15 @@ public class TabInfoFragment extends Fragment {
     private TextView textViewPriceStockInfo;
     private TextView textViewEconomyStockInfo;
 
+    private TextView textViewDealTimeout;
+    private TextView textViewProtection;
+
+    private GoogleMap googleMap;
+    private MapView mapViewAddress;
+
+    private double lat;
+    private double lon;
+
 
     @Nullable
     @Override
@@ -58,6 +79,13 @@ public class TabInfoFragment extends Fragment {
         textViewReviewsCount = view.findViewById(R.id.textViewReviewsCount);
         textViewPriceStockInfo = view.findViewById(R.id.textViewPriceStockInfo);
         textViewEconomyStockInfo = view.findViewById(R.id.textViewEconomyStockInfo);
+
+        textViewDealTimeout = view.findViewById(R.id.textViewDealTimeout);
+        textViewProtection = view.findViewById(R.id.textViewProtection);
+//        mapViewAddress  = view.findViewById(R.id.mapViewAddress);
+//        mapViewAddress.onCreate(savedInstanceState);
+//        mapViewAddress.getMapAsync(this);
+
         configureViewFlipper();
         loaderManager = LoaderManager.getInstance(this);
         try {
@@ -72,8 +100,31 @@ public class TabInfoFragment extends Fragment {
         return view;
     }
 
-    private void configureViewFlipper() {
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        LatLng deal_location = new LatLng(lat,lon);
+        this.googleMap.addMarker(new MarkerOptions().position(deal_location).title("Sydney Marker"));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(deal_location));
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+    }
 
+    private void createMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) SupportMapFragment.newInstance();
+        mapFragment.getMapAsync(this);
+        getChildFragmentManager().beginTransaction().replace(R.id.mapLayout, mapFragment).commit();
+    }
+
+    private void setLatLon(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    private void configureMapView() {
+
+    }
+
+    private void configureViewFlipper() {
         view_flipper.setFlipInterval(3000);
         view_flipper.setAutoStart(true);
     }
@@ -92,7 +143,6 @@ public class TabInfoFragment extends Fragment {
         newImage.setAdjustViewBounds(true);
         newImage.setScaleType(ImageView.ScaleType.FIT_XY);
         Picasso.get().load(image_url).into(newImage);
-
         view_flipper.addView(newImage);
     }
 
@@ -129,6 +179,29 @@ public class TabInfoFragment extends Fragment {
             textViewPriceStockInfo.setText(String.format(getResources().getString(R.string.tab_info_price_from), Integer.toString(stockInfo.getPrice())));
             textViewEconomyStockInfo.setText(String.format(getResources().getString(R.string.tab_info_economy_from), Integer.toString(stockInfo.getEconomy())));
 
+            switch (stockInfo.getProtection()){
+                case "standart":
+                    textViewProtection.setText(String.format(getResources().getString(R.string.tab_info_protection),"Стандартная"));
+                    break;
+                case "extended":
+                    textViewProtection.setText(String.format(getResources().getString(R.string.tab_info_protection),"Расширенная"));
+                    break;
+                case "absolute":
+                    textViewProtection.setText(String.format(getResources().getString(R.string.tab_info_protection),"Абсолютная"));
+                    break;
+            }
+            try {
+                String dateAsString = DateUtils.getDate(stockInfo.getTimeout(),"yyyy-MM-dd HH:mm:ss", "d MMMM yyyy", new Locale("ru"));
+                textViewDealTimeout.setText(String.format(getResources().getString(R.string.tab_info_dealTimeout), dateAsString));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<Place> places = stockInfo.getPlaces();
+            Place place = places.get(0);
+            setLatLon(place.getLat(), place.getLon());
+            createMap();
+
             loaderManager.destroyLoader(loaderStockInfoId);
 //            page++;
 //            isLoading = false;
@@ -139,4 +212,6 @@ public class TabInfoFragment extends Fragment {
 
         }
     };
+
+
 }

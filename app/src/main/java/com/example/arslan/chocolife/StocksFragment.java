@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.arslan.chocolife.adapters.StockAdapter;
 import com.example.arslan.chocolife.data.Stock;
@@ -27,14 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link StocksFragment.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link StocksFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
+
 public class StocksFragment extends Fragment  {
 
     private static final String myResultTag = "myResult";
@@ -46,7 +38,7 @@ public class StocksFragment extends Fragment  {
 
     private LoaderManager loaderManager;
     private static final int loaderStockId = 1;
-//    private static final int loaderCategoryId = 2;
+
 
     private int page = 1;
     private boolean isLoading = false;
@@ -127,9 +119,7 @@ public class StocksFragment extends Fragment  {
         Bundle bundle = new Bundle();
         bundle.putString("url", url.toString());
 
-        /**
-         * @param LoaderCallbacks - это слушатель изменений он реализован тут поэтому this
-         */
+
         loaderManager.restartLoader(loaderStockId, bundle, loaderForStocks);
     }
 
@@ -152,6 +142,7 @@ public class StocksFragment extends Fragment  {
         @Override
         public void onLoadFinished(@NonNull Loader<JSONObject> loader, JSONObject jsonObject) {
             ArrayList<Stock> allStocks = (ArrayList<Stock>) JSONUtils.getStocksFromJSON(jsonObject);
+
             Log.i(myResultTag, allStocks.toString());
 
             if (allStocks != null && !allStocks.isEmpty()) {

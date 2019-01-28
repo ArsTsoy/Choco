@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +13,26 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.example.arslan.chocolife.R;
-import com.example.arslan.chocolife.data.StockInfo;
 import com.example.arslan.chocolife.utils.JSONUtils;
 import com.example.arslan.chocolife.utils.NetworkUtils;
 
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.ArrayList;
 
-public class TabTermsFragment extends Fragment {
-    private final String TAG = "TabTermsFragment";
-    private static final int LAYOUT = R.layout.fragment_terms_tab;
-    private WebView webViewTermsTab;
+public class TabFeaturesFragment extends Fragment {
+    private final String TAG = "TabFeaturesFragment";
+    private static final int LAYOUT = R.layout.fragment_features_tab;
+    private WebView webViewFeaturesTab;
     private LoaderManager loaderManager;
-    private final int loaderTermId = 3;
+    private final int loaderFeatureId = 4;
     private String deal_id;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
-        webViewTermsTab = view.findViewById(R.id.webViewTerms);
+        webViewFeaturesTab = view.findViewById(R.id.webViewFeatrure);
         try {
             Bundle bundle = this.getArguments();
             deal_id = bundle.getString("deal_id");
@@ -50,17 +46,13 @@ public class TabTermsFragment extends Fragment {
         return view;
     }
 
-//    private void configureWebView() {
-//        webViewTermsTab.getSettings();
-//    }
-
-
     private void downloadData(String deal_id) {
         URL url = NetworkUtils.buildURLDealInfo(deal_id);
         Bundle bundle = new Bundle();
         bundle.putString("url", url.toString());
-        loaderManager.restartLoader(loaderTermId, bundle, loaderForTerm);
+        loaderManager.restartLoader(loaderFeatureId, bundle, loaderForTerm);
     }
+
 
     private LoaderManager.LoaderCallbacks<JSONObject> loaderForTerm = new LoaderManager.LoaderCallbacks<JSONObject>() {
         @NonNull
@@ -81,12 +73,12 @@ public class TabTermsFragment extends Fragment {
         @Override
         public void onLoadFinished(@NonNull Loader<JSONObject> loader, JSONObject jsonObject) {
 //            Log.i("json", jsonObject.toString());
-            String term = JSONUtils.getDealTermFromJSON(jsonObject);
+            String term = JSONUtils.getDealFeaturesFromJSON(jsonObject);
 //            Log.i(TAG, term);
-            webViewTermsTab.loadDataWithBaseURL(null, term,"text/html", "utf-8", null);
+            webViewFeaturesTab.loadDataWithBaseURL(null, term,"text/html", "utf-8", null);
 
 
-            loaderManager.destroyLoader(loaderTermId);
+            loaderManager.destroyLoader(loaderFeatureId);
 
 //            isLoading = false;
         }

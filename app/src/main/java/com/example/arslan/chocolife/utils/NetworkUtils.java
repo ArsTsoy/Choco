@@ -28,7 +28,7 @@ public class NetworkUtils {
 
     private static final String PARAMS_DEAL_ID = "deal_id";
 
-//    ?town_id={1}&category_id={1}&search_text={abc}&sort={null, price_asc, price_desc, popular, rating_desc, new}&page={1}
+
 
     private static final String PARAMS_SORT_BY = "sort";
     private static final String PARAMS_PAGE = "page";
